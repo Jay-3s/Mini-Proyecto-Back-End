@@ -1,4 +1,3 @@
-// Servicios para consumir la API de Django
 
 // Obtener productos
 async function GetProducts() {
@@ -39,7 +38,7 @@ async function PostProduct(formData) {
 async function UpdateProduct(id, formData) {
     try {
         const response = await fetch(`http://127.0.0.1:8000/api/productos/${id}/`, {
-            method: 'PATCH',
+            method: 'PATCH', // pasa de ser post a patch pq es una actualización
             body: formData
         });
         if (!response.ok) {

@@ -98,7 +98,7 @@ async function eliminarProducto(id) {
                 />
              )}
               <button onClick={() => eliminarProducto(producto.id)} style={{ marginLeft: 10 }}>Eliminar</button>
-              <button onClick={() => editarProducto(producto.id)} style={{ marginLeft: 10 }}>Editar</button>
+              <button onClick={() => editarProducto(producto.id)} style={{ marginLeft: 10 }}>Editar</button> 
            </li>
           ))}
       </ul>    
@@ -106,5 +106,7 @@ async function eliminarProducto(id) {
     </div>
   )
 }
+
+// Se realizan cambios en el archivo de llamados.js para que la funciones se adapten al formdata
 
 export default Inventario
