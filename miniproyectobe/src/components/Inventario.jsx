@@ -22,7 +22,7 @@ function Inventario() {
     }
   }
 
-  async function agregar() {
+async function agregar() {
   const formData = new FormData()
   formData.append('nombre', nombre)
   formData.append('descripcion', desc)
@@ -31,41 +31,38 @@ function Inventario() {
   if (img) formData.append('imagen', img)
 
   try {
-    console.log('Enviando:', nombre, desc, precio, stock, img)
-    if (editId) {
-      await llamados.UpdateProduct(editId, formData) // <-- Cambia aquí
-      setEditId(null)
-    } else {
-      await llamados.PostProduct(formData)
-    }
+    await llamados.PostProduct(formData)
     fetchProductos()
-    setNombre('')
-    setDesc('')
-    setPrecio("")
-    setStock("")
-    setImg(null)
   } catch (error) {
     // Manejo de error opcional
   }
- }
+}
 
-  async function eliminarProducto(id) {
-    try {
-      await llamados.DeleteProduct(id)
-      fetchProductos()
-    } catch (error) {
-      // Manejo de error opcional
-    }
-  }
+/*async function editarProducto(id) {
+  const formData = new FormData()
+  formData.append('nombre', nombre)
+  formData.append('descripcion', desc)
+  formData.append('precio', precio)
+  formData.append('stock', stock)
+  if (img) formData.append('imagen', img)
+  try {
+    await llamados.UpdateProduct(id, formData)
+    fetchProductos()
+  } catch (error) {
+    // Manejo de error opcional 
+  }   
+}*/
 
-  function editarProducto(producto) {
-    setEditId(producto.id)
-    setNombre(producto.nombre)
-    setDesc(producto.descripcion)
-    setPrecio(producto.precio)
-    setStock(producto.stock)
-    setImg(null) // No se puede editar la imagen directamente
+// Mueve eliminarProducto aquí, fuera de agregar
+async function eliminarProducto(id) {
+  try {
+    await llamados.DeleteProduct(id)
+    fetchProductos()
+  } catch (error) {
+    // Manejo de error opcional
   }
+}
+
 
   return (
     <div className='container'>
@@ -101,7 +98,7 @@ function Inventario() {
                 />
              )}
               <button onClick={() => eliminarProducto(producto.id)} style={{ marginLeft: 10 }}>Eliminar</button>
-              <button onClick={() => editarProducto(producto)} style={{ marginLeft: 5 }}>Editar</button>
+              <button onClick={() => editarProducto(producto.id)} style={{ marginLeft: 10 }}>Editar</button>
            </li>
           ))}
       </ul>    

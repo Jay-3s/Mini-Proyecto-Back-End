@@ -23,13 +23,11 @@ async function PostProduct(formData) {
             method: 'POST',
             body: formData
         });
-
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
         if (!response.ok) {
             console.error('Respuesta del backend:', data);
             throw new Error('Error posting product');
         }
-
         return data;
     } catch (error) {
         console.error('Error posting product:', error);
@@ -41,7 +39,7 @@ async function PostProduct(formData) {
 async function UpdateProduct(id, formData) {
     try {
         const response = await fetch(`http://127.0.0.1:8000/api/productos/${id}/`, {
-            method: 'PUT',
+            method: 'PATCH',
             body: formData
         });
         if (!response.ok) {
